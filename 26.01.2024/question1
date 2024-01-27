@@ -1,0 +1,73 @@
+/*Kristen loves playing with and comparing numbers. She thinks that if she takes two different positive numbers, the one whose digits sum to a larger number is better than the other. If the sum of digits is equal for both numbers, then she thinks the smaller number is better. For example, Kristen thinks that  is better than  and that  is better than .
+
+Given an integer, , can you find the divisor of  that Kristin will consider to be the best?
+
+Input Format
+
+A single integer denoting .
+
+Constraints
+
+Output Format
+
+Print an integer denoting the best divisor of .
+
+Sample Input 0
+
+12
+Sample Output 0
+
+6*/
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+        int best=find(n);
+        System.out.print(best);
+        bufferedReader.close();
+    }
+    public static int sum(int n)
+    {
+        int sum=0;
+        while(n>0)
+        {
+            sum+=n%10;
+            n/=10;
+        }
+    return sum;
+    }
+    public static int find(int n)
+    {
+        int best=1;
+        int max=1;
+        for(int i=2;i<=n;i++)
+        {
+            if(n%i==0)
+            {
+                int current=sum(i);
+                if(current>max || (current==max && i<best))
+                {
+                   max=current;
+                    best=i;
+                }
+            }
+        }
+        return best;
+}
+}

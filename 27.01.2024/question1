@@ -1,55 +1,47 @@
-/*You will be given a list of integers, , and a single integer . You must create an array of length  from elements of  such that its unfairness is minimized. Call that array . Unfairness of an array is calculated as
+/*Two words are anagrams of one another if their letters can be rearranged to form the other word.
 
-Where:
-- max denotes the largest integer in 
-- min denotes the smallest integer in 
+Given a string, split it into two contiguous substrings of equal length. Determine the minimum number of characters to change to make the two substrings into anagrams of one another.
 
 Example
 
-
-
-Pick any two elements, say .
-
-Testing for all pairs, the solution  provides the minimum unfairness.
-
-Note: Integers in  may not be unique.
+Break  into two parts: 'abc' and 'cde'. Note that all letters have been used, the substrings are contiguous and their lengths are equal. Now you can change 'a' and 'b' in the first substring to 'd' and 'e' to have 'dec' and 'cde' which are anagrams. Two changes were necessary.
 
 Function Description
 
-Complete the maxMin function in the editor below.
-maxMin has the following parameter(s):
+Complete the anagram function in the editor below.
 
-int k: the number of elements to select
-int arr[n]:: an array of integers
+anagram has the following parameter(s):
+
+string s: a string
 Returns
 
-int: the minimum possible unfairness
+int: the minimum number of characters to change or -1.
 Input Format
 
-The first line contains an integer , the number of elements in array .
-The second line contains an integer .
-Each of the next  lines contains an integer  where .
+The first line will contain an integer, , the number of test cases.
+Each test case will contain a string .
 
 Constraints
 
 
+ consists only of characters in the range ascii[a-z].
+Sample Input
 
+6
+aaabbb
+ab
+abc
+mnop
+xyyx
+xaxbbbxx
+Sample Output
 
-Sample Input 0
-
-7
 3
-10
-100
-300
-200
-1000
-20
-30
-Sample Output 0
-
-20*/
-
+1
+-1
+2
+0
+1*/
 
 import java.io.*;
 import java.math.*;
@@ -64,18 +56,19 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 class Result {
-    
-    public static int maxMin(int k, List<Integer> arr) {
-   
-        Collections.sort(arr);
-        int minfair=Integer.MAX_VALUE;
-        for(int i=0;i<=arr.size()-k;i++)
-        {
-            int fair=arr.get(i+k-1)-arr.get(i);
-            minfair=Math.min(minfair,fair);
-        }
-       return minfair;
-}
+
+    /*
+     * Complete the 'anagram' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts STRING s as parameter.
+     */
+
+    public static int anagram(String s) {
+    // Write your code here
+
+    }
+
 }
 
 public class Solution {
@@ -83,28 +76,22 @@ public class Solution {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int n = Integer.parseInt(bufferedReader.readLine().trim());
+        int q = Integer.parseInt(bufferedReader.readLine().trim());
 
-        int k = Integer.parseInt(bufferedReader.readLine().trim());
-
-        List<Integer> arr = IntStream.range(0, n).mapToObj(i -> {
+        IntStream.range(0, q).forEach(qItr -> {
             try {
-                return bufferedReader.readLine().replaceAll("\\s+$", "");
+                String s = bufferedReader.readLine();
+
+                int result = Result.anagram(s);
+
+                bufferedWriter.write(String.valueOf(result));
+                bufferedWriter.newLine();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-        })
-            .map(String::trim)
-            .map(Integer::parseInt)
-            .collect(toList());
-
-        int result = Result.maxMin(k, arr);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
+        });
 
         bufferedReader.close();
         bufferedWriter.close();
     }
 }
-
